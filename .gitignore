@@ -141,6 +141,7 @@ dataCleaning.ipynb
 steam_embeddings.npy
 *metadata.csv
 Ignore/*
+Datasets/*.csv
 
 # Spyder project settings
 .spyderproject
