@@ -13,5 +13,11 @@ class SlashCommands(commands.Cog):
     async def ping(self, ctx):
         await ctx.respond(f"Pong! Latency is {self.bot.latency}")
 
+    @discord.slash_command(description='Have a Conversation with the bot')
+    async def chat(self, ctx, *, message: str):
+        # Here you can implement your chat logic
+        await ctx.respond(f"You said: {message}")
+      
+
 def setup(bot):
     bot.add_cog(SlashCommands(bot))

@@ -1,2 +1,5 @@
-discord.py
+py-cord
+pandas
+sklearn
+sentence_transformers
 python-dotenv

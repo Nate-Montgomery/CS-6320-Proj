@@ -2,74 +2,104 @@
 
 - **Class:** CS 6320
 - **Name:** Nate Montgomery (NAM190002)
-- **Team:** Myself
+- **Team:** Individual Project
 
 NLP Project for CS 6320
 
 ## Discord Bot Project
 
-This project is a Discord bot built using the `discord.py` library. It serves as a template for creating a customizable bot with various features.
+This project is a Discord bot built using the `py-cord` library. The bot provides game recommendations based on user preferences and their Steam library. It leverages NLP techniques and embeddings to generate personalized recommendations.
+
+---
 
 ### Project Structure
 
 ```
-discord-bot-project
+CS-6320-Proj
 ├── bot
 │   ├── __init__.py
 │   ├── main.py
 │   ├── cogs
-│   │   └── example_cog.py
+│   │   ├── GameRecommender.py  # Handles game recommendation logic
+│   │   ├── SteamLibrary.py    # Fetches and processes user Steam library
+│   │   ├── Upload.py          # Handles user-uploaded library metadata
+│   │   └── SlashCommands.py   # Additional bot commands
 │   └── utils
-│       └── helpers.py
-├── requirements.txt
-├── .env
-└── README.md
+│       └── helpers.py         # Utility functions
+├── Datasets
+│   ├── steam_data.csv         # Raw Steam data
+│   ├── text_content.csv       # Additional text data
+│   ├── steam_data_cleaned.csv # Preprocessed dataset
+│   └── steam_embeddings.npy   # Precomputed embeddings
+├── Environment
+│   └── environment.yaml       # Conda environment configuration
+├── requirements.txt           # Python dependencies
+├── .env                       # Environment variables
+├── README.md                  # Project documentation
+└── LICENSE                    # License information
 ```
+
+---
+
+### Features
+
+- **Game Recommendations**:
+  - Provides personalized game recommendations based on user preferences and their Steam library.
+  - Uses Sentence Transformers for semantic similarity and embeddings.
+- **Steam Library Integration**:
+  - Fetches and processes user Steam library metadata.
+- **Custom Slash Commands**:
+  - Includes commands for uploading libraries, fetching recommendations, and more.
+
+---
 
 ### Setup Instructions
 
 1. **Clone the repository:**
-   ```
+   ```bash
    git clone <repository-url>
-   cd discord-bot-project
+   cd CS-6320-Proj
    ```
 
-2. **Create a virtual environment:**
-   ```
-   python -m venv venv
-   ```
-
-3. **Activate the virtual environment:**
-   - On Windows:
+2. **Create and activate the Conda environment:**
+   - Create the environment using the `environment.yaml` file:
+     ```bash
+     conda env create -f Environment/environment.yaml
      ```
-     venv\Scripts\activate
-     ```
-   - On macOS/Linux:
-     ```
-     source venv/bin/activate
+   - Activate the environment:
+     ```bash
+     conda activate ProjectNLP
      ```
 
-4. **Install the required dependencies:**
-   ```
-   pip install -r requirements.txt
+3. **Set up your environment variables:**
+   - Create a `.env` file in the root directory and add your Discord bot token and Steam API key:
+     ```properties
+     DISCORD_TOKEN=your_bot_token_here
+     STEAM_API_KEY=your_steam_api_key_here
+     ```
+
+4. **Run the bot:**
+   ```bash
+   python bot/main.py
    ```
 
-5. **Set up your environment variables:**
-   Create a `.env` file in the root directory and add your Discord bot token:
-   ```
-   DISCORD_TOKEN=your_bot_token_here
-   ```
+---
 
 ### Usage
 
-To run the bot, execute the following command:
-```
-python bot/main.py
-```
+- **Commands**:
+  - `/recommend [prompt]`: Get a game recommendation based on your library and preferences.
+  - `/fetchlibrary [Steam ID/username]`: Fetch your Steam library metadata.
+  - `/upload`: Upload your Steam library metadata manually.
+  - `/checklibrary`: Check your uploaded library.
+
+---
 
 ### Contributing
 
-Feel free to fork the repository and submit pull requests for any improvements or features you would like to add.
+Contributions are welcome! Feel free to fork the repository and submit pull requests for any improvements or features you would like to add.
+
+---
 
 ### License
 

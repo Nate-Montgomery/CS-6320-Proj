@@ -25,5 +25,6 @@ async def on_ready():
 for filename in os.listdir('./bot/cogs'):
     if filename.endswith('.py'):
         bot.load_extension(f'cogs.{filename[:-3]}')  # Await the coroutine
+        print(f'Loaded cog: {filename[:-3]}')
 
 bot.run(TOKEN)  # Start the bot

@@ -136,6 +136,12 @@ ENV/
 env.bak/
 venv.bak/
 
+# Random Stuff
+dataCleaning.ipynb
+steam_embeddings.npy
+*metadata.csv
+Ignore/*
+
 # Spyder project settings
 .spyderproject
 .spyproject
