@@ -4,13 +4,24 @@ import pandas as pd
 from sentence_transformers import SentenceTransformer
 import numpy as np
 import os
+import zipfile
 
 embeddings_file = 'Datasets/steam_embeddings.npy'
 
 class GameRecommender(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.dataset = pd.read_csv('Datasets\\steam_data_cleaned.csv')
+        
+        # Path to the CSV file
+        csv_file_path = 'Datasets\\steam_data_cleaned.csv'
+
+        # Check if the CSV file already exists
+        if not os.path.exists(csv_file_path):
+            # If the CSV file doesn't exist, unzip the file
+            with zipfile.ZipFile('Datasets\\steam_data_cleaned.zip', 'r') as zip_ref:
+                zip_ref.extractall('Datasets')
+
+        self.dataset = pd.read_csv(csv_file_path)
         self.model = SentenceTransformer('all-MiniLM-L6-v2')
 
         self.dataset = self.dataset.loc[self.dataset['num_reviews'] > 10].reset_index(drop=True)
