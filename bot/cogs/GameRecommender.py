@@ -90,10 +90,21 @@ class GameRecommender(commands.Cog):
                     f"📝 **Description:** {top_game['full_desc']}\n"
                     f"🏷️ **Genres:** {top_game['categories']}\n"
                     f"💯 **User Reviews:** {top_game['review_txt']}\n"
-                    f"💲 **Price:** {top_game['price']}\n"
                 )
             else:
                 response = "❗ No suitable recommendations found. Try a different prompt!"
+
+            if len(response) > 2000:
+                print(f"Response length: {len(response)}")
+                rem = len(response) - 2000
+                response = (
+                    f"🎮 **Recommended Game:** [{top_game['name']}]({top_game['url']})\n"
+                    f"📝 **Description:** {top_game['full_desc'][:-rem]}\n"
+                    f"🏷️ **Genres:** {top_game['categories']}\n"
+                    f"💯 **User Reviews:** {top_game['review_txt']}\n"
+                )
+                print(f"Updated Response length: {len(response)}")
+            
 
             await ctx.respond(response)
         except Exception as e:
