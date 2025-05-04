@@ -20,23 +20,17 @@ CS-6320-Proj
 │   ├── __init__.py
 │   ├── main.py
 │   ├── cogs
-│   │   ├── GameRecommender.py  # Handles game recommendation logic
+│   │   ├── GameRecommender.py # Handles game recommendation logic
 │   │   ├── SteamLibrary.py    # Fetches and processes user Steam library
 │   │   ├── Upload.py          # Handles user-uploaded library metadata
 │   │   └── SlashCommands.py   # Additional bot commands
-│   └── utils
-│       └── helpers.py         # Utility functions
 ├── Datasets
-│   ├── steam_data.csv         # Raw Steam data
-│   ├── text_content.csv       # Additional text data
-│   ├── steam_data_cleaned.csv # Preprocessed dataset
-│   └── steam_embeddings.npy   # Precomputed embeddings
+│   └── steam_data_cleaned.zip # Compressed cleaned dataset
 ├── Environment
 │   └── environment.yaml       # Conda environment configuration
 ├── requirements.txt           # Python dependencies
 ├── .env                       # Environment variables
 ├── README.md                  # Project documentation
-└── LICENSE                    # License information
 ```
 
 ---
@@ -88,9 +82,9 @@ CS-6320-Proj
 ### Usage
 
 - **Commands**:
-  - `/recommend [prompt]`: Get a game recommendation based on your library and preferences.
   - `/fetchlibrary [Steam ID/username]`: Fetch your Steam library metadata.
   - `/upload`: Upload your Steam library metadata manually.
+  - `/recommend [prompt]`: Get a game recommendation based on your library and preferences.
   - `/checklibrary`: Check your uploaded library.
 
 ---
@@ -99,8 +93,3 @@ CS-6320-Proj
 
 Contributions are welcome! Feel free to fork the repository and submit pull requests for any improvements or features you would like to add.
 
----
-
-### License
-
-This project is licensed under the MIT License. See the LICENSE file for details.

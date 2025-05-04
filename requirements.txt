@@ -1,5 +1,5 @@
 py-cord
 pandas
-sklearn
+scikit-learn
 sentence_transformers
 python-dotenv
