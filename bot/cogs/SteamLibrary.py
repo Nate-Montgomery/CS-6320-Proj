@@ -69,30 +69,34 @@ class SteamLibrary(commands.Cog):
             for game in games:
                 appid = game["appid"]
                 name = game["name"]
-                playtime_hours = round(game.get("playtime_forever", 0) / 60, 2)  # Convert playtime from minutes to hours
+                playtime_hours = round(game.get("playtime_forever", 0) / 60, 2)
 
-                # Fetch detailed metadata
                 detail_url = f"https://store.steampowered.com/api/appdetails?appids={appid}&l=en"
-                try:
-                    detail_response = requests.get(detail_url)
-                    detail_response.raise_for_status()
-                    data = detail_response.json()
+                retries = 3
+                for attempt in range(retries):
+                    try:
+                        detail_response = requests.get(detail_url)
+                        detail_response.raise_for_status()
+                        data = detail_response.json()
 
-                    if data[str(appid)]["success"]:
-                        info = data[str(appid)]["data"]
-                        genres = ", ".join(g["description"] for g in info.get("genres", []))
-                        devs = ", ".join(info.get("developers", []))
-                        pubs = ", ".join(info.get("publishers", []))
-                        desc = info.get("short_description", "")
-                        meta = info.get("metacritic", {}).get("score", "N/A")
-                        recs = info.get("recommendations", {}).get("total", "N/A")
+                        if data[str(appid)]["success"]:
+                            info = data[str(appid)]["data"]
+                            genres = ", ".join(g["description"] for g in info.get("genres", []))
+                            devs = ", ".join(info.get("developers", []))
+                            pubs = ", ".join(info.get("publishers", []))
+                            desc = info.get("short_description", "")
+                            meta = info.get("metacritic", {}).get("score", "N/A")
+                            recs = info.get("recommendations", {}).get("total", "N/A")
 
-                        writer.writerow([appid, name, genres, devs, pubs, desc, meta, recs, playtime_hours])
-
-                except Exception as e:
-                    print(f"Error fetching data for {appid}: {e}")
-
-                time.sleep(0.5)  # Avoid rate-limiting
+                            writer.writerow([appid, name, genres, devs, pubs, desc, meta, recs, playtime_hours])
+                        break  # Exit retry loop on success
+                    except requests.exceptions.HTTPError as e:
+                        if e.response.status_code == 429 and attempt < retries - 1:
+                            print(f"Rate limit hit for {appid}. Retrying in {2 ** attempt} seconds...")
+                            time.sleep(2 ** attempt)  # Exponential backoff
+                        else:
+                            print(f"Error fetching data for {appid}: {e}")
+                            break
 
             # Send the CSV file to the user
             csv_buffer.seek(0)
